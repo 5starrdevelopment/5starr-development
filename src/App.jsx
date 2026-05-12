@@ -268,18 +268,6 @@ const AboutPage = () => (
 
 // ─── Services Page ───
 const ServicesPage = ({ setPage }) => {
-  const [pricingTab, setPricingTab] = useState("individual");
-
-  const TabBtn = ({ id, label, active }) => (
-    <button onClick={() => setPricingTab(id)} style={{
-      padding: "12px 24px", borderRadius: 6, fontFamily: "'Oswald', sans-serif", fontSize: 13,
-      letterSpacing: 2, cursor: "pointer", textTransform: "uppercase",
-      border: active ? "2px solid #D4A843" : "1px solid rgba(212,168,67,0.15)",
-      background: active ? "rgba(212,168,67,0.1)" : "rgba(255,255,255,0.02)",
-      color: active ? "#F0D78C" : "#8A8FA3", fontWeight: active ? 600 : 400, transition: "all 0.2s",
-    }}>{label}</button>
-  );
-
   const PricingCard = ({ label, badge, price, unit, detail, sub, featured }) => (
     <div style={{
       ...cardStyle, padding: "32px 28px 28px",
@@ -306,137 +294,75 @@ const ServicesPage = ({ setPage }) => {
     </div>
   );
 
-  const GroupRow = ({ size, price, note, accent }) => (
-    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0", borderBottom: "1px solid rgba(212,168,67,0.06)" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-        <div style={{
-          width: 28, height: 28, borderRadius: "50%",
-          background: accent ? "rgba(52,211,153,0.15)" : "rgba(212,168,67,0.1)",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontFamily: "'Oswald', sans-serif", fontSize: accent ? 11 : 12,
-          color: accent ? "#34d399" : "#D4A843", fontWeight: 600,
-        }}>{size}</div>
-        <span style={{ ...bodyFont, fontSize: 14, color: "#C8CCD8" }}>{note || `${size} players`}</span>
-      </div>
-      <span style={{ fontFamily: "'Oswald', sans-serif", fontSize: 18, color: accent ? "#34d399" : "#F0D78C", fontWeight: 600, letterSpacing: 1 }}>{price}</span>
-    </div>
-  );
-
   return (
     <>
       <div style={{ paddingTop: 80 }} />
       <Section bg="#0A0E1A">
         <SectionTitle pre="What We Offer" title="SERVICES & PRICING" sub="Transparent pricing. Elite development." />
 
-        {/* Loyalty banner */}
+        {/* Limited Summer Availability Banner */}
         <div style={{
-          background: "linear-gradient(135deg, rgba(212,168,67,0.1), rgba(212,168,67,0.04))",
-          border: "1px solid rgba(212,168,67,0.2)", borderRadius: 8,
+          background: "linear-gradient(135deg, rgba(212,168,67,0.15), rgba(212,168,67,0.05))",
+          border: "1px solid rgba(212,168,67,0.3)", borderRadius: 8,
           padding: "20px 28px", marginBottom: 48, display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap",
         }}>
-          <StarrLogo size={32} />
+          <div style={{
+            width: 10, height: 10, borderRadius: "50%", background: "#D4A843",
+            boxShadow: "0 0 12px rgba(212,168,67,0.8)", flexShrink: 0,
+          }} />
           <div>
-            <h4 style={{ ...headingFont(14), margin: "0 0 4px" }}>LOYALTY PROGRAM</h4>
+            <h4 style={{ ...headingFont(14), margin: "0 0 4px" }}>LIMITED SUMMER AVAILABILITY</h4>
             <p style={{ ...bodyFont, fontSize: 13, margin: 0 }}>
-              Complete 10 paid sessions and earn a <span style={{ color: "#D4A843" }}>free session</span> — length equals the average of your 10 sessions. Earned Not Given.
+              Summer roster is filling fast — only a few slots remain. <span style={{ color: "#D4A843" }}>Lock yours in now.</span>
             </p>
           </div>
         </div>
 
-        {/* ═══ PLAYER TRAINING — Tabbed Pricing ═══ */}
-        <h3 style={{ ...headingFont(16), marginBottom: 24, letterSpacing: 4, color: "#8A8FA3" }}>PLAYER TRAINING</h3>
+        {/* ═══ PLAYER TRAINING — Session Packages ═══ */}
+        <h3 style={{ ...headingFont(16), marginBottom: 8, letterSpacing: 4, color: "#8A8FA3" }}>PLAYER TRAINING</h3>
+        <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, color: "#8A8FA3", fontStyle: "italic", marginBottom: 32 }}>Commit. Develop. Reload.</p>
 
-        {/* Tab Navigation */}
-        <div style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 40, flexWrap: "wrap" }}>
-          <TabBtn id="individual" label="1-on-1 Training" active={pricingTab === "individual"} />
-          <TabBtn id="group" label="Group Training" active={pricingTab === "group"} />
-          <TabBtn id="packages" label="Monthly Packages" active={pricingTab === "packages"} />
+        <div style={{ maxWidth: 800, margin: "0 auto", marginBottom: 48 }}>
+          <p style={{ fontFamily: "'Oswald', sans-serif", fontSize: 10, color: "#D4A843", letterSpacing: 2, textTransform: "uppercase", marginBottom: 24, textAlign: "center" }}>1-ON-1 TRAINING · 75-MINUTE SESSIONS</p>
+          <div style={{ display: "flex", gap: 20, marginBottom: 32, flexWrap: "wrap" }}>
+            <PricingCard
+              label="10-SESSION PACKAGE"
+              price="$1,000"
+              detail="10 sessions · 75 minutes each"
+              sub="$100 per session"
+            />
+            <PricingCard
+              label="15-SESSION PACKAGE"
+              badge="Best Value"
+              price="$1,250"
+              detail="15 sessions · 75 minutes each"
+              sub="$83 per session · Save 17%"
+              featured
+            />
+          </div>
+
+          <div style={{ ...cardStyle, padding: "28px 28px 24px", marginBottom: 24 }}>
+            <div style={goldTopBar} />
+            <h4 style={{ ...headingFont(14), letterSpacing: 3, marginBottom: 16 }}>HOW IT WORKS</h4>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12 }}>
+              {[
+                "Choose 10 or 15 sessions to start",
+                "Train on a flexible schedule that fits you",
+                "Reload anytime — buy another package when sessions run out",
+                "Every session: analytics, film, custom plan",
+              ].map(item => (
+                <div key={item} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 14px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(212,168,67,0.06)", borderRadius: 6 }}>
+                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#D4A843", flexShrink: 0 }} />
+                  <span style={{ ...bodyFont, fontSize: 13, color: "#C8CCD8" }}>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <p style={{ ...bodyFont, fontSize: 13, color: "#8A8FA3", textAlign: "center", lineHeight: 1.7, margin: 0 }}>
+            No monthly billing. No auto-renew. Just a commitment to development — and the option to keep going when you're ready.
+          </p>
         </div>
-
-        {/* ─── Individual Training ─── */}
-        {pricingTab === "individual" && (
-          <div style={{ maxWidth: 700, margin: "0 auto", marginBottom: 60 }}>
-            <p style={{ fontFamily: "'Oswald', sans-serif", fontSize: 10, color: "#D4A843", letterSpacing: 2, textTransform: "uppercase", marginBottom: 16, textAlign: "center" }}>75-MINUTE SESSIONS</p>
-            <div style={{ display: "flex", gap: 16, marginBottom: 32, flexWrap: "wrap" }}>
-              <PricingCard label="SINGLE SESSION" price="$90" detail="One-off session, no commitment" sub="$1.20/min" />
-              <PricingCard label="RECURRING WEEKLY" badge="Best Value" price="$75" detail="Same day & time each week · 3-month minimum" sub="$1.00/min · Save 17% · 12 sessions minimum" featured />
-            </div>
-
-            <div style={{ ...cardStyle, padding: "32px 28px 28px", marginBottom: 32 }}>
-              <div style={goldTopBar} />
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16 }}>
-                <div>
-                  <h3 style={{ ...headingFont(16), marginBottom: 8 }}>QUICK SESSION</h3>
-                  <p style={{ ...bodyFont, fontSize: 13, color: "#8A8FA3", margin: 0 }}>30-minute minimum · Shooting tune-ups, pre-game prep, focused skill work</p>
-                </div>
-                <div style={{ textAlign: "right" }}>
-                  <span style={{ fontFamily: "'Oswald', sans-serif", fontSize: 32, fontWeight: 700, color: "#F0D78C", lineHeight: 1 }}>$1.25</span>
-                  <span style={{ fontFamily: "'Oswald', sans-serif", fontSize: 14, color: "#8A8FA3", letterSpacing: 1 }}>/MIN</span>
-                </div>
-              </div>
-              <div style={{ display: "flex", gap: 12, marginTop: 16, flexWrap: "wrap" }}>
-                {[{ dur: "30 min", cost: "$37.50" }, { dur: "45 min", cost: "$56.25" }, { dur: "60 min", cost: "$75.00" }].map(s => (
-                  <div key={s.dur} style={{ padding: "8px 16px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(212,168,67,0.06)", borderRadius: 6, display: "flex", gap: 8, alignItems: "center" }}>
-                    <span style={{ fontFamily: "'Oswald', sans-serif", fontSize: 11, color: "#5A5F73", letterSpacing: 1 }}>{s.dur}</span>
-                    <span style={{ fontFamily: "'Oswald', sans-serif", fontSize: 14, color: "#F0D78C", fontWeight: 600 }}>{s.cost}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <p style={{ ...bodyFont, fontSize: 13, color: "#8A8FA3", textAlign: "center", lineHeight: 1.7 }}>
-              Every session is built around analytics and film study. Custom development plan, video analysis, and progress tracking included.
-            </p>
-          </div>
-        )}
-
-        {/* ─── Group Training ─── */}
-        {pricingTab === "group" && (
-          <div style={{ maxWidth: 600, margin: "0 auto", marginBottom: 60 }}>
-            <p style={{ fontFamily: "'Oswald', sans-serif", fontSize: 10, color: "#D4A843", letterSpacing: 2, textTransform: "uppercase", marginBottom: 16, textAlign: "center" }}>75-MINUTE SESSIONS · PER PLAYER</p>
-            <div style={{ ...cardStyle, padding: "32px 28px 24px", marginBottom: 32 }}>
-              <div style={goldTopBar} />
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-                <h3 style={{ ...headingFont(16), margin: 0 }}>GROUP TRAINING</h3>
-                <span style={{ fontFamily: "'Oswald', sans-serif", fontSize: 10, color: "#5A5F73", letterSpacing: 1.5, textTransform: "uppercase" }}>Price per player</span>
-              </div>
-              <GroupRow size="2" price="$50" note="2 players (semi-private)" />
-              <GroupRow size="3" price="$40" />
-              <GroupRow size="4" price="$35" />
-              <GroupRow size="5" price="$30" />
-              <GroupRow size="6" price="$25" />
-              <GroupRow size="7" price="$25" />
-              <GroupRow size="8+" price="$20" note="8 or more players" accent />
-            </div>
-            <div style={{ padding: 20, background: "rgba(212,168,67,0.04)", border: "1px solid rgba(212,168,67,0.15)", borderRadius: 8 }}>
-              <p style={{ ...bodyFont, fontSize: 13, color: "#8A8FA3", margin: 0 }}>Organize your own group and split the cost. All skill levels welcome — Coach Starr designs each session to challenge every player in the group.</p>
-            </div>
-          </div>
-        )}
-
-        {/* ─── Monthly Packages ─── */}
-        {pricingTab === "packages" && (
-          <div style={{ maxWidth: 900, margin: "0 auto", marginBottom: 60 }}>
-            <p style={{ fontFamily: "'Oswald', sans-serif", fontSize: 10, color: "#D4A843", letterSpacing: 2, textTransform: "uppercase", marginBottom: 16, textAlign: "center" }}>1-ON-1 PACKAGES · 75-MINUTE SESSIONS</p>
-            <div style={{ display: "flex", gap: 16, marginBottom: 32, flexWrap: "wrap" }}>
-              <PricingCard label="STARTER" price="$340" unit="/MO" detail="4 sessions per month" sub="$85/session · Save 6%" />
-              <PricingCard label="DEVELOPMENT" badge="Most Popular" price="$640" unit="/MO" detail="8 sessions per month" sub="$80/session · Save 11%" featured />
-              <PricingCard label="ELITE" price="$900" unit="/MO" detail="12 sessions per month" sub="$75/session · Save 17%" />
-            </div>
-            <div style={{ ...cardStyle, padding: "28px 28px 24px" }}>
-              <div style={goldTopBar} />
-              <h4 style={{ ...headingFont(14), letterSpacing: 3, marginBottom: 16 }}>ALL PACKAGES INCLUDE</h4>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 12 }}>
-                {["Priority scheduling", "Flexible weekly scheduling", "Progress tracking", "Cancel or pause anytime"].map(item => (
-                  <div key={item} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 14px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(212,168,67,0.06)", borderRadius: 6 }}>
-                    <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#D4A843", flexShrink: 0 }} />
-                    <span style={{ ...bodyFont, fontSize: 13, color: "#C8CCD8" }}>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Scholarship note */}
         <div style={{ textAlign: "center", padding: "24px 20px 48px", borderTop: "1px solid rgba(212,168,67,0.06)" }}>
@@ -563,10 +489,10 @@ const CampsPage = ({ setPage }) => {
           <div style={{ width: 40, height: 2, background: "#D4A843", margin: "0 auto 24px" }} />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16, maxWidth: 700, margin: "0 auto 32px" }}>
             {[
-              { name: "YOUTH DEVELOPMENT CAMP", detail: "Grades 3-7 • Full Day • $85" },
-              { name: "SHOT DOCTOR CLINIC", detail: "Grades 6-12 • Full Day • $125" },
-              { name: "ELITE SKILLS CAMP", detail: "Grades 8-12 • 3 Days • $400" },
-              { name: "COACHES CLINIC", detail: "All Coaches • Full Day • $300" },
+              { name: "YOUTH DEVELOPMENT CAMP", detail: "Grades 3-7 • Full Day" },
+              { name: "SHOT DOCTOR CLINIC", detail: "Grades 6-12 • Full Day" },
+              { name: "ELITE SKILLS CAMP", detail: "Grades 8-12 • 3 Days" },
+              { name: "COACHES CLINIC", detail: "All Coaches • Full Day" },
             ].map((c, i) => (
               <div key={i} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(212,168,67,0.1)", borderRadius: 8, padding: "16px 12px", textAlign: "center" }}>
                 <div style={{ fontFamily: "'Oswald', sans-serif", fontSize: 12, color: "#D4A843", letterSpacing: 1.5, marginBottom: 6 }}>{c.name}</div>
@@ -574,8 +500,8 @@ const CampsPage = ({ setPage }) => {
               </div>
             ))}
           </div>
-          <p style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 13, color: "#5A5F73", margin: "0 0 24px" }}>5-Starr Elite members receive free camp registration. Sliding scale available for families who need financial assistance.</p>
-          <GoldButton onClick={() => setPage("Book Now")}>Get Notified</GoldButton>
+          <p style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 13, color: "#5A5F73", margin: "0 0 24px" }}>Pricing and registration details are finalized closer to each event. Reach out for more information or to be the first to know when registration opens.</p>
+          <GoldButton onClick={() => setPage("Book Now")}>Contact For Details</GoldButton>
         </div>
       </Section>
     </>
@@ -1055,7 +981,7 @@ const Footer = ({ setPage }) => (
 // ─── Home Page ───
 const HomePage = ({ setPage }) => {
   const highlights = [
-    { title: "SKILL TRAINING", desc: "1-on-1 and small group sessions — 75-minute development workouts or quick à la carte sessions built on analytics and film study", icon: "🎯" },
+    { title: "SKILL TRAINING", desc: "1-on-1 training in 10 or 15-session packages — 75-minute development workouts built on analytics and film study", icon: "🎯" },
     { title: "MEMBERSHIP", desc: "Three tiers of commitment: Rising Starr, All-Starr, and 5-Starr Elite — starting at $19.99/mo", icon: "⭐" },
     { title: "CAMPS & CLINICS", desc: "Intensive development events from youth through elite levels — free for 5-Starr Elite members", icon: "🏀" },
     { title: "COACH CONSULTING", desc: "Scouting reports, analytics dashboards, scheme design, and full program building", icon: "📊" },
